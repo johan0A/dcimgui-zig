@@ -1,0 +1,29 @@
+.{
+    .name = .cimgui,
+    .version = "0.0.0",
+    .fingerprint = 0x49726f5f0499149f,
+    .dependencies = .{
+        .dear_bindings = .{
+            .url = "git+https://github.com/dearimgui/dear_bindings#d27d0824350dcaa08c09b1e882ea1ce13f2eb90d",
+            .hash = "N-V-__8AAMhuCACb7QDIj4wjliIff7zos7Lf2KEZRjdTO06R",
+        },
+        .ply = .{
+            .url = "git+https://github.com/dabeaz/ply#5c4dc94d4c6d059ec127ee1493c735963a5d2645",
+            .hash = "N-V-__8AAPmiCABE_SI4E3AW1QQMpvhKAhO6NSDvikun55RB",
+        },
+        .imgui = .{
+            .url = "git+https://github.com/ocornut/imgui?ref=v1.92.3#bf75bfec48fc00f532af8926130b70c0e26eb099",
+            .hash = "N-V-__8AAEHhbwAGe10fih4RPMsSgezO3Y0wl3MiwolFfu_y",
+        },
+        .imgui_docking = .{
+            .url = "git+https://github.com/ocornut/imgui#28837ec64234849f8c6ff39f55e960be0b0e11ad",
+            .hash = "N-V-__8AAMmiegAZbHlKUYq6SneitsVErqfsvC51ZV2PNo6F",
+        },
+    },
+    .paths = .{
+        "gen",
+        "src",
+        "build.zig",
+        "build.zig.zon",
+    },
+}

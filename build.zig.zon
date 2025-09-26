@@ -1,7 +1,7 @@
 .{
-    .name = .cimgui,
+    .name = .dcimgui,
     .version = "0.0.0",
-    .fingerprint = 0x49726f5f0499149f,
+    .fingerprint = 0x1a257974cc65f338,
     .dependencies = .{
         .dear_bindings = .{
             .url = "git+https://github.com/dearimgui/dear_bindings#d27d0824350dcaa08c09b1e882ea1ce13f2eb90d",

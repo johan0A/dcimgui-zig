@@ -27,7 +27,7 @@ const cimgui_dep = b.dependency("dcimgui", .{
         \\ #define IMGUI_DEBUG_PARANOID 
     ),
 });
-your_module.linkLibrary(cimgui_dep.artifact("cimgui_clib"));
+your_module.linkLibrary(cimgui_dep.artifact("dcimgui"));
 ```
 
 see complete zig example in the the `example` dir

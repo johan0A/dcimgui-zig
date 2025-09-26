@@ -32,7 +32,7 @@ pub fn build(b: *std.Build) !void {
     };
     const dcimgui_backends_path = try dcimgui_path.join(b.allocator, "backends");
 
-    const lib_cimgui_mod = b.createModule(.{
+    const lib_dcimgui_mod = b.createModule(.{
         .target = target,
         .optimize = optimize,
         .link_libc = true,
@@ -40,7 +40,7 @@ pub fn build(b: *std.Build) !void {
     });
 
     {
-        lib_cimgui_mod.addCSourceFiles(.{
+        lib_dcimgui_mod.addCSourceFiles(.{
             .root = imgui_path.path(b, ""),
             .files = &.{
                 "imgui_demo.cpp",
@@ -51,41 +51,41 @@ pub fn build(b: *std.Build) !void {
             },
         });
 
-        lib_cimgui_mod.addCSourceFile(.{ .file = dcimgui_path.path(b, "dcimgui.cpp") });
+        lib_dcimgui_mod.addCSourceFile(.{ .file = dcimgui_path.path(b, "dcimgui.cpp") });
 
         for (backends) |backend| {
-            lib_cimgui_mod.addCSourceFile(.{ .file = imgui_path.path(b, b.fmt("backends/{t}.cpp", .{backend})) });
-            lib_cimgui_mod.addCSourceFile(.{ .file = dcimgui_backends_path.path(b, b.fmt("dc{t}.cpp", .{backend})) });
+            lib_dcimgui_mod.addCSourceFile(.{ .file = imgui_path.path(b, b.fmt("backends/{t}.cpp", .{backend})) });
+            lib_dcimgui_mod.addCSourceFile(.{ .file = dcimgui_backends_path.path(b, b.fmt("dc{t}.cpp", .{backend})) });
         }
 
-        lib_cimgui_mod.addIncludePath(imconfig);
+        lib_dcimgui_mod.addIncludePath(imconfig);
 
-        lib_cimgui_mod.addIncludePath(imgui_path.path(b, ""));
-        lib_cimgui_mod.addIncludePath(imgui_path.path(b, "backends/"));
+        lib_dcimgui_mod.addIncludePath(imgui_path.path(b, ""));
+        lib_dcimgui_mod.addIncludePath(imgui_path.path(b, "backends/"));
 
-        lib_cimgui_mod.addIncludePath(dcimgui_path);
-        lib_cimgui_mod.addIncludePath(dcimgui_backends_path);
+        lib_dcimgui_mod.addIncludePath(dcimgui_path);
+        lib_dcimgui_mod.addIncludePath(dcimgui_backends_path);
 
         const header_path_list = b.option([]std.Build.LazyPath, "include-path-list", "list of path to headers to be included for compiling the various backends that need it") orelse &.{};
         for (header_path_list) |headers_path| {
-            lib_cimgui_mod.addIncludePath(headers_path);
+            lib_dcimgui_mod.addIncludePath(headers_path);
         }
     }
 
     {
-        const lib_cimgui = b.addLibrary(.{
+        const lib_dcimgui = b.addLibrary(.{
             .linkage = b.option(std.builtin.LinkMode, "linkage", "default to static") orelse .static,
-            .name = "cimgui_clib",
-            .root_module = lib_cimgui_mod,
+            .name = "dcimgui",
+            .root_module = lib_dcimgui_mod,
         });
-        b.installArtifact(lib_cimgui);
+        b.installArtifact(lib_dcimgui);
 
-        lib_cimgui.installHeadersDirectory(imconfig, "", .{});
-        lib_cimgui.installHeadersDirectory(dcimgui_path, "", .{});
-        lib_cimgui.installHeadersDirectory(imgui_path.path(b, ""), "", .{});
+        lib_dcimgui.installHeadersDirectory(imconfig, "", .{});
+        lib_dcimgui.installHeadersDirectory(dcimgui_path, "", .{});
+        lib_dcimgui.installHeadersDirectory(imgui_path.path(b, ""), "", .{});
         for (backends) |backend| {
             const file_name = b.fmt("dc{t}.h", .{backend});
-            lib_cimgui.installHeader(dcimgui_backends_path.path(b, file_name), file_name);
+            lib_dcimgui.installHeader(dcimgui_backends_path.path(b, file_name), file_name);
         }
     }
 

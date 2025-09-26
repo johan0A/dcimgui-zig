@@ -30,7 +30,7 @@ pub fn build(b: *std.Build) void {
                 \\ #define IMGUI_DEBUG_PARANOID 
             ),
         });
-        root_module.linkLibrary(cimgui_dep.artifact("cimgui_clib"));
+        root_module.linkLibrary(cimgui_dep.artifact("dcimgui"));
 
         const translate_c = b.addTranslateC(.{
             .root_source_file = b.addWriteFiles().add("stub.h",
@@ -43,7 +43,7 @@ pub fn build(b: *std.Build) void {
             .optimize = optimize,
         });
         translate_c.addIncludePath(sdl_dep.artifact("SDL3").getEmittedIncludeTree());
-        translate_c.addIncludePath(cimgui_dep.artifact("cimgui_clib").getEmittedIncludeTree());
+        translate_c.addIncludePath(cimgui_dep.artifact("dcimgui").getEmittedIncludeTree());
         root_module.addImport("c", translate_c.createModule());
     }
 

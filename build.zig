@@ -54,7 +54,7 @@ pub fn build(b: *std.Build) !void {
         lib_cimgui_mod.addCSourceFile(.{ .file = dcimgui_path.path(b, "dcimgui.cpp") });
 
         for (backends) |backend| {
-            lib_cimgui_mod.addCSourceFile(.{ .file = imgui_path.path(b, b.fmt("backends/{s}.cpp", .{@tagName(backend)})) });
+            lib_cimgui_mod.addCSourceFile(.{ .file = imgui_path.path(b, b.fmt("backends/{t}.cpp", .{backend})) });
             lib_cimgui_mod.addCSourceFile(.{ .file = dcimgui_backends_path.path(b, b.fmt("dc{t}.cpp", .{backend})) });
         }
 
@@ -82,8 +82,11 @@ pub fn build(b: *std.Build) !void {
 
         lib_cimgui.installHeadersDirectory(imconfig, "", .{});
         lib_cimgui.installHeadersDirectory(dcimgui_path, "", .{});
-        lib_cimgui.installHeadersDirectory(dcimgui_backends_path, "", .{});
         lib_cimgui.installHeadersDirectory(imgui_path.path(b, ""), "", .{});
+        for (backends) |backend| {
+            const file_name = b.fmt("dc{t}.h", .{backend});
+            lib_cimgui.installHeader(dcimgui_backends_path.path(b, file_name), file_name);
+        }
     }
 
     {
@@ -119,4 +122,3 @@ pub fn build(b: *std.Build) !void {
 }
 
 // TODO: use lazy dependencies
-// TODO: add example

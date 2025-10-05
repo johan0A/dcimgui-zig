@@ -16,8 +16,8 @@
             .hash = "N-V-__8AAEHhbwAGe10fih4RPMsSgezO3Y0wl3MiwolFfu_y",
         },
         .imgui_docking = .{
-            .url = "git+https://github.com/ocornut/imgui#28837ec64234849f8c6ff39f55e960be0b0e11ad",
-            .hash = "N-V-__8AAMmiegAZbHlKUYq6SneitsVErqfsvC51ZV2PNo6F",
+            .url = "git+https://github.com/ocornut/imgui?ref=docking#8f3f4282288b17aee798b6fade6787a8a17843ca",
+            .hash = "N-V-__8AAJ73egAT6whJKw9llyGPmB9wEOwpfhosJQtlj4Z1",
         },
     },
     .paths = .{
